@@ -13,12 +13,18 @@
       box-sizing: border-box;
     }
 
-    body {
+    /* Target both html and body to completely kill scrolling */
+    html, body {
       margin: 0;
       padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* Disables all scrollbars */
+    }
+
+    body {
       color: rgba(255, 255, 255, 0.8);
       font-family: 'Fira Code', monospace;
-      height: 100%;
       text-align: center;
     }
 
@@ -31,7 +37,8 @@
       z-index: -1; 
       object-fit: cover; 
     }
-    
+
+    /* Restored the overlay at 20% opacity */
     #video-overlay {
       position: fixed;
       top: 0;
@@ -50,7 +57,9 @@
       justify-content: center;
       align-items: center;
       padding: 0 1rem;
+      /* 100dvh dynamically adjusts to mobile address bars, falling back to 100vh */
       height: 100vh;
+      height: 100dvh; 
       position: relative; 
       z-index: 1; 
     }
@@ -63,16 +72,9 @@
       justify-content: center;
     }
 
-    .emoji {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      white-space: nowrap;
-      display: inline-block;
-      line-height: 1;
-      font-weight: 800;
+    /* Fluid typography: scales automatically between 1.5rem and 40px */
+    #element, .typed-cursor {
+      font-size: clamp(1.5rem, 6vw, 40px) !important;
     }
 
     footer {
@@ -86,7 +88,6 @@
     }
 
     .typed-cursor {
-      font-size: 40px; 
       color: inherit; 
       opacity: 1; 
       animation: blink 0.7s infinite; 
@@ -101,21 +102,18 @@
 </head>
 
 <body>
-  <video id="video-background" autoplay muted loop>
+  <video id="video-background" autoplay muted loop playsinline>
     <source src="https://file.garden/Z5YVSGXMBSWGuJIs/Letter-Ii.mp4" type="video/mp4">
-    Yo hellow there.
+    Your browser does not support the video tag.
   </video>
   
+  <!-- The overlay element is placed right over the video -->
   <div id="video-overlay"></div>
 
   <div class="container">
     <header class="block">
       <div>
-        
-  <div class="container">
-    <header class="block">
-      <div>
-        <span id="element" style="font-size: 40px;"></span>
+        <span id="element"></span>
       </div>
     </header>
     <footer>
