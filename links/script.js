@@ -10,7 +10,7 @@ const links = [
         description: "Connect with me professionally.",
         url: "https://www.linkedin.com/in/dhiaurrahman-rh/",
         // Or leave image blank and it will fallback to an SVG icon or default
-        image: "https://cdn-icons-png.flaticon.com/512/174/174857.png"
+        image: "https://cdn-icons-png.flaticon.com/512/3536/3536505.png"
     },
     {
         title: "Curiculum Vitae",
@@ -24,31 +24,31 @@ const links = [
         description: "Used to documenting my works, projects, thoughts, or something that i dont want to forget..",
         url: "https://wiki.dhiar.my.id",
         // You can provide an image URL:
-        image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=100&h=100&fit=crop&auto=format"
+        image: "https://cdn-icons-png.flaticon.com/512/2920/2920849.png"
     },
     {
         title: "GitHub",
         description: "Check out my personal or open-source projects.",
         url: "https://github.com/Alfar0nt/",
-        image: "https://cdn-icons-png.flaticon.com/512/25/25231.png"
+        image: "https://cdn-icons-png.flaticon.com/512/5968/5968866.png"
     },
     {
         title: "Instagram",
         description: "My Personal Dumps.",
         url: "https://instagram.com/dhiarharianto",
-        image: "https://cdn-icons-png.flaticon.com/512/3955/3955024.png"
+        image: "https://cdn-icons-png.flaticon.com/512/15713/15713420.png"
     },
     {
         title: "YouTube Channel",
-        description: "Watch my latest video tutorials.",
+        description: "Mostly just a College Projects.",
         url: "https://www.youtube.com/@dhiarharianto/",
-        image: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
+        image: "https://cdn-icons-png.flaticon.com/512/3938/3938026.png"
     },
     {
         title: "Spotify",
         description: "My Fav Songs.",
         url: "https://open.spotify.com/user/8kdkeoxc1li5pzujpuy8n7ie6?si=5c04c94b6a704489",
-        image: "https://cdn-icons-png.flaticon.com/512/174/174872.png"
+        image: "https://cdn-icons-png.flaticon.com/512/3537/3537017.png"
     }
 ];
 
