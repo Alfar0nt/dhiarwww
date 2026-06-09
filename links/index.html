@@ -4,13 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Signals to Brave/Chrome that this page already uses a dark theme.
+         Prevents the browser from applying its own dark-mode GPU filter on top
+         of the page content (which would compound compositing cost on mobile). -->
+    <meta name="color-scheme" content="dark">
     <title>Dhiar's Link-In-Bio</title>
     <meta name="description" content="Welcome to my personal link-in-bio page. Connect with me on various platforms.">
-    <!-- Google Fonts: Inter -->
+
+    <!-- Preconnect to font origins for faster DNS lookup -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Non-render-blocking Google Fonts: loads as print, swaps to screen when ready -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
+
     <link rel="icon" href="https://file.garden/Z5YVSGXMBSWGuJIs/logo.png">
+
+    <!-- Preload the LCP image (profile picture) to speed up Largest Contentful Paint -->
+    <link rel="preload" href="./profile.jpg" as="image" fetchpriority="high">
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="styles.css">
@@ -19,10 +34,14 @@
 <body>
     <!-- Background Video -->
     <div class="video-container">
-        <!-- We use a placeholder video. The dark overlay makes text readable. -->
-        <video autoplay muted loop playsinline id="bg-video">
-            <source src="./letter-bg.mp4" type="video/mp4">
-        </video>
+        <!--
+            No <source> tag here.
+            The video src is set lazily by script.js after checking:
+              - prefers-reduced-motion
+              - network speed (2G/3G → skip video, show CSS fallback)
+              - data saver mode
+        -->
+        <video muted loop playsinline id="bg-video" preload="none" aria-hidden="true"></video>
         <div class="overlay"></div>
     </div>
 
@@ -30,13 +49,19 @@
     <main class="container">
         <!-- Profile Section -->
         <header class="profile-section">
-            <img src="./profile.jpg" alt="Profile Picture" class="profile-pic" id="profile-pic">
+            <!--
+                fetchpriority="high" — tells browser to fetch this image before other resources.
+                decoding="async"     — lets browser decode image off the main thread.
+            -->
+            <img src="./profile.jpg" alt="Profile Picture" class="profile-pic" id="profile-pic" fetchpriority="high"
+                decoding="async" width="250" height="250">
             <h1 class="profile-name" id="profile-name">Dhiar Harianto<br>-DevOps Learner-</h1>
             <p class="profile-description" id="profile-description">Surabaya, East Java</p>
 
             <a href="mailto:contact@dhiar.my.id" class="mail-btn" id="mail-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                     <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
@@ -46,12 +71,12 @@
 
         <!-- Links Section -->
         <section class="links-section" id="links-container">
-            <!-- Links will be injected here by script.js -->
+            <!-- Links injected by script.js (deferred, non-blocking) -->
         </section>
     </main>
 
-    <!-- Main JS -->
-    <script src="script.js"></script>
+    <!-- defer: script downloads in parallel, runs only after HTML is parsed — never blocks rendering -->
+    <script src="script.js" defer></script>
 </body>
 
 </html>
