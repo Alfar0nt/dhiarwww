@@ -87,9 +87,17 @@ function initBackgroundVideo() {
         return;
     }
 
+    // Detect mobile for reduced preload — on mobile we only fetch metadata
+    // (first frame) until the user has finished the initial scroll, which
+    // avoids competing with scroll-compositor work for GPU decode budget.
+    const isMobile = window.matchMedia('(max-width: 640px)').matches;
+
     // Defer src assignment until after all critical resources have loaded.
     // This ensures the ~2 MB video file never delays the LCP image or fonts.
     const startVideo = () => {
+        // On mobile use preload="metadata" to only fetch the first frame until
+        // the video is actually played — saves bandwidth and decode time.
+        video.preload = isMobile ? 'metadata' : 'auto';
         video.src = './letter-bg.mp4';
         video.load();
         // play() returns a Promise; catch the rejection silently in case
@@ -118,6 +126,10 @@ function renderLinks() {
     const linksContainer = document.getElementById('links-container');
     if (!linksContainer) return;
 
+    // Detect mobile — skip will-change promotion to save GPU memory on
+    // devices with limited compositor budget.
+    const isMobile = window.matchMedia('(max-width: 640px)').matches;
+
     const fragment = document.createDocumentFragment();
 
     links.forEach((link, index) => {
@@ -135,10 +147,14 @@ function renderLinks() {
         // its own GPU compositor layer BEFORE the animation starts.
         // This prevents mid-animation layer promotion (which causes a stutter).
         // We remove it immediately after the animation ends to free GPU memory.
-        linkEl.style.willChange = 'transform';
-        linkEl.addEventListener('animationend', () => {
-            linkEl.style.willChange = 'auto';
-        }, { once: true });
+        // On mobile we skip this: too many promoted layers on low-end GPUs
+        // actually causes MORE jank than the layer-promotion stutter it prevents.
+        if (!isMobile) {
+            linkEl.style.willChange = 'transform';
+            linkEl.addEventListener('animationend', () => {
+                linkEl.style.willChange = 'auto';
+            }, { once: true });
+        }
 
         // Resolve icon: prefer local image → inline SVG → generic link icon
         let mediaContent;

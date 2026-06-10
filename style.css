@@ -1,0 +1,237 @@
+/* ============================================
+   Custom Styles - Dhiar Harianto Portfolio
+   Terminal/Hacker aesthetic with Deep Ocean palette
+   ============================================ */
+
+/* --- Base & Reset --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+::selection {
+    background: #4a9a8e;
+    color: #0f1419;
+}
+
+/* --- Scrollbar Styling --- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f1419;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4a9a8e;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5ab8a8;
+}
+
+/* --- Scroll Animations --- */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-animate.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered delay classes for sequential animation */
+.scroll-delay-1 {
+    transition-delay: 0.15s;
+}
+
+.scroll-delay-2 {
+    transition-delay: 0.3s;
+}
+
+.scroll-delay-3 {
+    transition-delay: 0.45s;
+}
+
+/* --- Hero Fade-in Animation --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* --- Cursor Blink Effect for Hero --- */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+h2::after {
+    animation: blink 1s infinite;
+}
+
+/* --- Typing Animation Cursor --- */
+.typing-cursor {
+    animation: blink 0.8s infinite;
+    color: #4a9a8e;
+}
+
+/* --- Card Hover Effects --- */
+.card {
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(74, 154, 142, 0.5);
+    box-shadow: 0 8px 30px rgba(74, 154, 142, 0.1);
+}
+
+/* --- Navigation Link Active State --- */
+.nav-link.active {
+    color: #4a9a8e;
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #4a9a8e;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* --- Button Styles --- */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.btn-primary:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* --- Navbar Scroll Effect --- */
+#navbar.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Section Title Decoration --- */
+.section-title::before {
+    content: '# ';
+    color: #4a9a8e;
+    opacity: 0.5;
+}
+
+/* --- Back to Top Button Transition --- */
+#back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Sticky CTA Transition --- */
+#sticky-cta.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Social Link Hover --- */
+.social-link:hover svg {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* --- Focus Styles for Accessibility --- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid #4a9a8e;
+    outline-offset: 2px;
+}
+
+/* --- Skip Link for Accessibility --- */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: #4a9a8e;
+    color: #0f1419;
+    padding: 0.5rem 1rem;
+    z-index: 100;
+    font-weight: bold;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* --- Mobile Menu Animation --- */
+#mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+#mobile-menu.open {
+    max-height: 300px;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* Stack sticky CTA and back-to-top on mobile */
+    #sticky-cta {
+        bottom: 5rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    #back-to-top {
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+}

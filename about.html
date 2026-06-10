@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Dhiar Harianto - DevOps Learner">
+    <title>About Me | Dhiar Harianto</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Monospace -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ocean-bg': '#0f1419',
+                        'ocean-card': '#192028',
+                        'ocean-teal': '#4a9a8e',
+                        'ocean-silver': '#a8b2c1',
+                    },
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-ocean-bg text-ocean-silver font-mono">
+    
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-ocean-bg/95 backdrop-blur-sm z-50 border-b border-ocean-card transition-all duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="text-xl font-bold text-ocean-teal hover:text-ocean-silver transition-colors">
+                    &lt;Dhiar Harianto&gt;
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link text-ocean-silver hover:text-ocean-teal transition-colors">home</a>
+                    <a href="about.html" class="nav-link active text-ocean-silver hover:text-ocean-teal transition-colors">about</a>
+                    <a href="index.html#skills" class="nav-link text-ocean-silver hover:text-ocean-teal transition-colors">skills</a>
+                    <a href="index.html#projects" class="nav-link text-ocean-silver hover:text-ocean-teal transition-colors">projects</a>
+                    <a href="index.html#contact" class="nav-link text-ocean-silver hover:text-ocean-teal transition-colors">contact</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-ocean-silver hover:text-ocean-teal focus:outline-none" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-3">
+                <a href="index.html" class="block text-ocean-silver hover:text-ocean-teal transition-colors">home</a>
+                <a href="about.html" class="block text-ocean-silver hover:text-ocean-teal transition-colors">about</a>
+                <a href="index.html#skills" class="block text-ocean-silver hover:text-ocean-teal transition-colors">skills</a>
+                <a href="index.html#projects" class="block text-ocean-silver hover:text-ocean-teal transition-colors">projects</a>
+                <a href="index.html#contact" class="block text-ocean-silver hover:text-ocean-teal transition-colors">contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Me Section -->
+    <section class="min-h-screen pt-32 pb-20 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <h1 class="text-4xl md:text-5xl font-bold mb-8 text-ocean-teal scroll-animate">
+                &lt;About Me&gt;
+            </h1>
+            
+            <!-- Profile Card -->
+            <div class="card bg-ocean-card p-8 rounded-lg border border-ocean-teal/20 mb-8 scroll-animate">
+                <div class="flex flex-col md:flex-row items-center gap-6 mb-8">
+                    <img 
+                        src="profile.jpg" 
+                        alt="Dhiar Harianto" 
+                        class="w-32 h-32 rounded-full object-cover border-4 border-ocean-teal shadow-lg"
+                    >
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-ocean-silver mb-2">Dhiar Harianto</h2>
+                        <p class="text-ocean-teal text-lg">DevOps Learner</p>
+                        <p class="text-ocean-silver/60 text-sm mt-2">Surabaya, East Java, Indonesia</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-ocean-silver">$ cat about.txt</h3>
+                        <p class="text-ocean-silver/80 leading-relaxed">
+                            Hello! I'm Dhiar Harianto, a passionate technology enthusiast with a strong focus on DevOps practices and IT operations. I'm currently pursuing my degree in Information Systems at UPN "Veteran" Jawa Timur, where I'm building a solid foundation in both theoretical knowledge and practical applications.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-ocean-silver">$ cat journey.txt</h3>
+                        <p class="text-ocean-silver/80 leading-relaxed mb-4">
+                            My journey into the world of technology started with a curiosity about how systems work and how they can be made more efficient. This led me to explore the fascinating intersection of development and operations, where I discovered my passion for DevOps.
+                        </p>
+                        <p class="text-ocean-silver/80 leading-relaxed">
+                            I believe in the power of automation, continuous integration, and continuous deployment to transform how we build and deliver software. My goal is to bridge the gap between development and operations teams, creating streamlined workflows that enable faster, more reliable software delivery.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-ocean-silver">$ cat interests.txt</h3>
+                        <ul class="space-y-3 text-ocean-silver/80">
+                            <li class="flex items-start">
+                                <span class="text-ocean-teal mr-2">&gt;</span>
+                                <span><strong>Container Orchestration:</strong> Exploring Kubernetes and Docker to build scalable, resilient applications</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ocean-teal mr-2">&gt;</span>
+                                <span><strong>CI/CD Pipelines:</strong> Automating build, test, and deployment processes with GitHub Actions and Jenkins</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ocean-teal mr-2">&gt;</span>
+                                <span><strong>Infrastructure as Code:</strong> Using Terraform and Ansible to manage cloud infrastructure efficiently</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ocean-teal mr-2">&gt;</span>
+                                <span><strong>Cloud Technologies:</strong> Working with AWS and other cloud platforms to build modern infrastructure</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ocean-teal mr-2">&gt;</span>
+                                <span><strong>Monitoring & Observability:</strong> Implementing Prometheus, Grafana, and ELK stack for system insights</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ocean-teal mr-2">&gt;</span>
+                                <span><strong>Linux Administration:</strong> Deep diving into system administration and shell scripting</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-ocean-silver">$ cat philosophy.txt</h3>
+                        <p class="text-ocean-silver/80 leading-relaxed">
+                            I'm a firm believer in continuous learning and improvement. The tech landscape evolves rapidly, and I enjoy staying current with emerging trends and tools. Whether it's experimenting with new containerization technologies, exploring service mesh implementations, or learning about GitOps practices, I'm always looking for opportunities to expand my knowledge and skills.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-ocean-silver">$ cat goals.txt</h3>
+                        <p class="text-ocean-silver/80 leading-relaxed mb-4">
+                            My short-term goal is to gain hands-on experience with production-level DevOps implementations and contribute to meaningful projects that make a difference. Long-term, I aspire to become a DevOps engineer who not only builds robust systems but also mentors others in adopting DevOps practices.
+                        </p>
+                        <p class="text-ocean-silver/80 leading-relaxed">
+                            I'm particularly interested in helping organizations transition to cloud-native architectures and implementing DevOps culture that emphasizes collaboration, automation, and continuous improvement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="card bg-ocean-card p-8 rounded-lg border border-ocean-teal/20 text-center scroll-animate">
+                <h3 class="text-xl font-semibold mb-4 text-ocean-silver">Let's Connect!</h3>
+                <p class="text-ocean-silver/80 mb-6">
+                    Interested in collaborating, discussing DevOps topics, or just want to chat about technology?
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="index.html#contact" class="btn-primary bg-ocean-teal text-ocean-bg px-6 py-3 rounded hover:bg-ocean-teal/80 transition-all font-semibold">
+                        Get in Touch
+                    </a>
+                    <a href="index.html" class="btn-secondary border-2 border-ocean-teal text-ocean-teal px-6 py-3 rounded hover:bg-ocean-teal/10 transition-all font-semibold">
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ocean-card border-t border-ocean-teal/20 py-12 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- About Column -->
+                <div>
+                    <h4 class="text-ocean-teal font-semibold mb-4">About</h4>
+                    <p class="text-ocean-silver/80 text-sm">
+                        Dhiar Harianto - DevOps Learner passionate about automation and reliable systems.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-ocean-teal font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-ocean-silver/80 hover:text-ocean-teal transition-colors">Home</a></li>
+                        <li><a href="about.html" class="text-ocean-silver/80 hover:text-ocean-teal transition-colors">About</a></li>
+                        <li><a href="index.html#projects" class="text-ocean-silver/80 hover:text-ocean-teal transition-colors">Projects</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div>
+                    <h4 class="text-ocean-teal font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://blog.dhiar.my.id" class="text-ocean-silver/80 hover:text-ocean-teal transition-colors">Blog</a></li>
+                        <li><a href="https://wiki.dhiar.my.id" class="text-ocean-silver/80 hover:text-ocean-teal transition-colors">Personal Wiki</a></li>
+                        <li><a href="#" class="text-ocean-silver/80 hover:text-ocean-teal transition-colors">Resume</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-ocean-teal font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm text-ocean-silver/80">
+                        <li>Surabaya, East Java, Indonesia</li>
+                        <li>contact@dhiar.my.id</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-ocean-teal/20 pt-8 text-center text-ocean-silver/60 text-sm">
+                <p>&copy; 2026 Dhiar Harianto. Built with passion and automation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu and scroll animations -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            mobileMenu.classList.toggle('hidden');
+            
+            if (isOpen) {
+                menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+            } else {
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            }
+        });
+        
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            });
+        });
+        
+        // Scroll Animations
+        const scrollAnimElements = document.querySelectorAll('.scroll-animate');
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    scrollObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        scrollAnimElements.forEach(el => scrollObserver.observe(el));
+    </script>
+</body>
+</html>

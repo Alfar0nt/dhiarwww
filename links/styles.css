@@ -23,10 +23,19 @@ body {
     font-family: 'Inter', sans-serif;
     color: var(--text-color);
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     justify-content: center;
     /* Prevent scrollbar flash on load */
     overflow-y: scroll;
+    /* Smooth native scrolling — CSS-based, zero JS overhead.
+       Works on both desktop (trackpad/wheel) and mobile (touch flick). */
+    scroll-behavior: smooth;
+    /* Prevents pull-to-refresh on Android Chrome which causes a visible
+       "snap" as the page rubber-bands and the video container repositions */
+    overscroll-behavior-y: contain;
+    /* iOS momentum scrolling — enables native inertial scroll */
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Background Video Styles */
@@ -35,7 +44,13 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    /* Use dynamic viewport height on mobile to prevent the "teleport" jump
+       caused by Android's URL bar showing/hiding during scroll.
+       100vh = static (includes area behind URL bar) → layout recalculates → snap.
+       100dvh = dynamic (adjusts as URL bar appears/disappears) → smooth.
+       Fallback: 100vh for browsers that don't support dvh. */
+    height: 100vh;
+    height: 100dvh;
     z-index: -1;
     overflow: hidden;
     background-color: #111827;
@@ -48,18 +63,29 @@ body {
      * repaint is synchronous with JS execution, the element visually "snaps"
      * to its recalculated position instead of staying smoothly in place.
      *
-     * translateZ(0) / translate3d(0,0,0) promotes the element to its own
-     * GPU compositor layer. Once on the compositor, the browser handles its
-     * position entirely on the GPU thread — completely decoupled from main-
-     * thread scroll repaints, so the background never jumps again.
+     * translate3d(0,0,0) promotes the element to its own GPU compositor layer.
+     * Once on the compositor, the browser handles its position entirely on the
+     * GPU thread — completely decoupled from main-thread scroll repaints, so
+     * the background never jumps again.
+     *
+     * will-change: transform keeps the compositor layer alive permanently so it
+     * never gets demoted and re-promoted mid-scroll (which causes a stutter).
      *
      * backface-visibility: hidden is a companion hint that prevents certain
      * Android GPUs from discarding and re-uploading the texture on each frame.
+     *
+     * isolation: isolate creates a stacking context that prevents the fixed
+     * element from being affected by z-index changes in scrolling content.
      */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    will-change: transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    isolation: isolate;
+    /* Prevents the browser from using this element's bounds to calculate
+       scroll snap points or overscroll glow, both of which cause jitter */
+    overscroll-behavior: none;
 }
 
 #bg-video {
@@ -67,9 +93,12 @@ body {
     height: 100%;
     object-fit: cover;
     /* Keep the video itself on the compositor layer so frame rendering
-       stays on GPU and doesn't trigger layout/paint on the main thread */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+       stays on GPU and doesn't trigger layout/paint on the main thread.
+       translate3d is preferred over translateZ for broader Android GPU compat. */
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .overlay {
@@ -84,8 +113,12 @@ body {
             rgba(0, 0, 0, 0.8));
     /* Keep overlay on compositor so it stacks above video without triggering
        a main-thread repaint on mobile scroll */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    /* contain: paint tells the browser this element's rendering is independent
+       of its siblings — avoids unnecessary repaints of the overlay when
+       adjacent content scrolls */
+    contain: paint;
 }
 
 /* Container */
@@ -97,8 +130,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Scopes layout recalculations to this subtree — improves paint performance */
-    contain: layout;
+    /* contain: layout + paint scopes both layout recalculations AND paint
+       invalidation to this subtree — the browser knows nothing outside this
+       box needs repainting when content inside it changes (or scrolls).
+       size is intentionally omitted: this element's height IS its content,
+       so the browser must measure it for correct scroll-bar sizing. */
+    contain: layout paint;
 }
 
 /* Profile Section */
@@ -182,6 +219,10 @@ body {
     /* Shortened: 0.8s → 0.3s — reduces how long 7 promoted compositor layers
        are alive simultaneously on the GPU */
     animation: fadeInUp 0.3s ease-out backwards;
+    /* contain: content = layout + paint + style.
+       Each card's visual changes (hover, animation) are scoped to itself —
+       the browser won't repaint neighboring cards when one is hovered. */
+    contain: content;
 }
 
 /* Staggered animation delays handled by JS */
@@ -330,6 +371,19 @@ body {
         -webkit-backdrop-filter: none;
         background: rgba(0, 0, 0, 0.5);
         border-color: rgba(255, 255, 255, 0.15);
+        /* Removes the default blue/grey tap highlight on Android Chrome.
+           The highlight triggers a synchronous paint on every touchstart,
+           adding ~1-2ms of main-thread work per tap. */
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* On mobile, drop the GPU compositing layer from the overlay.
+       With backdrop-filter already removed, the overlay's translate3d creates
+       a redundant layer. Fewer layers = less GPU memory pressure on low-end
+       devices, reducing scroll jank. */
+    .overlay {
+        transform: none;
+        -webkit-transform: none;
     }
 }
 
