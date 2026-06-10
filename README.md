@@ -1,4 +1,4 @@
-# https://Alfar0nt.github.io
+# Landing Page for dhiar.my.id
 ## To-dos:
 1. Tambahin foto profil berbentuk bulat di samping Nama, filenya ada di ./profile.jpg
 2. Ganti projects dengan projek yang sudah pernah dikerjakan, untuk link-nya bisa di arahkan ke wiki.dhiar.my.id
